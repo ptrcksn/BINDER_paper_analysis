@@ -59,7 +59,7 @@ for(n in 1:n_regulators){
   regulator <- all_regulators[n]
   print(regulator)
   proxy_regulon <- all_proxy_regulons[all_proxy_regulons$regulator == regulator, ]
-  regulons_vague[[regulator]] <- binder(proxy_regulon, m_abscessus_coexpression, is_coexpression=TRUE, mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=0, sigma_phi=1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=n_chains, iter=n_iter, warmup=n_warmup, seed=seed)
+  regulons_vague[[regulator]] <- binder(proxy_regulon, m_abscessus_coexpression, is_coexpression=TRUE, mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=0, sigma_phi=1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=n_chains, iter=n_iter, warmup=n_warmup, seed=seed)[[regulator]]
 }
 
 final_regulons_vague <- data.frame(stringsAsFactors=FALSE)
@@ -129,7 +129,7 @@ for(n in 1:n_regulators){
   regulator <- all_regulators[n]
   print(regulator)
   proxy_regulon <- all_proxy_regulons[all_proxy_regulons$regulator == regulator, ]
-  regulons_informed[[regulator]] <- binder(proxy_regulon, m_abscessus_coexpression, is_coexpression=TRUE, mu_zeta=-3, sigma_zeta=1, mu_tau=c(3,3), sigma_tau=c(1,1), mu_phi=0, sigma_phi=0.5, mu_psi=c(0,0), sigma_psi=c(1.5,1.5), chains=n_chains, iter=n_iter, warmup=n_warmup, seed=seed)
+  regulons_informed[[regulator]] <- binder(proxy_regulon, m_abscessus_coexpression, is_coexpression=TRUE, mu_zeta=-3, sigma_zeta=1, mu_tau=c(3,3), sigma_tau=c(1,1), mu_phi=0, sigma_phi=0.5, mu_psi=c(0,0), sigma_psi=c(1.5,1.5), chains=n_chains, iter=n_iter, warmup=n_warmup, seed=seed)[[regulator]]
 }
 
 final_regulons_informed <- data.frame(stringsAsFactors=FALSE)
@@ -199,7 +199,7 @@ for(n in 1:n_regulators){
   regulator <- all_regulators[n]
   print(regulator)
   proxy_regulon <- all_proxy_regulons[all_proxy_regulons$regulator == regulator, ]
-  regulons_specific[[regulator]] <- binder(proxy_regulon, m_abscessus_coexpression, is_coexpression=TRUE, mu_zeta=-3, sigma_zeta=0.1, mu_tau=c(3,3), sigma_tau=c(0.1,0.1), mu_phi=0, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(0.5,0.5), chains=n_chains, iter=n_iter, warmup=n_warmup, seed=seed)
+  regulons_specific[[regulator]] <- binder(proxy_regulon, m_abscessus_coexpression, is_coexpression=TRUE, mu_zeta=-3, sigma_zeta=0.1, mu_tau=c(3,3), sigma_tau=c(0.1,0.1), mu_phi=0, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(0.5,0.5), chains=n_chains, iter=n_iter, warmup=n_warmup, seed=seed)[[regulator]]
 }
 
 

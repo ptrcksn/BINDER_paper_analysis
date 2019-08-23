@@ -268,26 +268,26 @@ for(n in 1:n_regulons){
   if(organism == "E. coli"){
     coexpression_all <-  regulon_data[[n]]$coexpression_all
 
-    results_binder_all <- binder(proxy_regulon, coexpression_all, is_coexpression=TRUE,  mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=1, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=3, seed=1)
+    results_binder_all <- binder(proxy_regulon, coexpression_all, is_coexpression=TRUE,  mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=1, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=3, seed=1)[[1]]
     df_binder_all <- data.frame(Organism=organism, Regulator=regulator, RegulatorLocus=regulator_locus, TargetCandidate=results_binder_all$target_candidate, Score=results_binder_all$theta_interval[, 2], Interaction=ifelse(results_binder_all$target_candidate %in% interactions, 1, 0), Model="BINDER (all)", ME=results_binder_all$ME, PE=results_binder_all$PE, CM=results_binder_all$CM, CP=results_binder_all$CP, stringsAsFactors=FALSE)
     all_df_binder_all <- rbind(all_df_binder_all, df_binder_all)
 
     if(regulator == "Fur"){
-      results_binder_muphi10 <- binder(proxy_regulon, coexpression, is_coexpression=TRUE,  mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=10, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=3, seed=1)
+      results_binder_muphi10 <- binder(proxy_regulon, coexpression, is_coexpression=TRUE,  mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=10, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=3, seed=1)[[1]]
       df_binder_muphi10 <- data.frame(Organism=organism, Regulator=regulator, RegulatorLocus=regulator_locus, TargetCandidate=results_binder_muphi10$target_candidate, Score=results_binder_muphi10$theta_interval[, 2], Interaction=ifelse(results_binder_muphi10$target_candidate %in% interactions, 1, 0), Model="BINDER [Informative p(phi)]", ME=results_binder_muphi10$ME, PE=results_binder_muphi10$PE, CM=results_binder_muphi10$CM, CP=results_binder_muphi10$CP, stringsAsFactors=FALSE)
       all_df_binder_muphi10 <- rbind(all_df_binder_muphi10, df_binder_muphi10)
     }
   }
 
-  results_binder <- binder(proxy_regulon, coexpression, is_coexpression=TRUE, mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=1, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=3, seed=1)
+  results_binder <- binder(proxy_regulon, coexpression, is_coexpression=TRUE, mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_phi=1, sigma_phi=0.1, mu_psi=c(0,0), sigma_psi=c(3,3), chains=3, seed=1)[[1]]
   df_binder <- data.frame(Organism=organism, Regulator=regulator, RegulatorLocus=regulator_locus, TargetCandidate=results_binder$target_candidate, Score=results_binder$theta_interval[, 2], Interaction=ifelse(results_binder$target_candidate %in% interactions, 1, 0), Model="BINDER", ME=results_binder$ME, PE=results_binder$PE, CM=results_binder$CM, CP=results_binder$CP, stringsAsFactors=FALSE)
   all_df_binder <- rbind(all_df_binder, df_binder)
 
-  results_non_auxiliary <- binder(proxy_regulon, coexpression, is_coexpression=TRUE, mu_psi=c(0,0), sigma_psi=c(3,3), model="non_auxiliary", chains=3, seed=1)
+  results_non_auxiliary <- binder(proxy_regulon, coexpression, is_coexpression=TRUE, mu_psi=c(0,0), sigma_psi=c(3,3), model="non_auxiliary", chains=3, seed=1)[[1]]
   df_non_auxiliary <- data.frame(Organism=organism, Regulator=regulator, RegulatorLocus=regulator_locus, TargetCandidate=results_non_auxiliary$target_candidate, Score=results_non_auxiliary$theta_interval[, 2], Interaction=ifelse(results_non_auxiliary$target_candidate %in% interactions, 1, 0), Model="Non-auxiliary", ME=results_non_auxiliary$ME, PE=results_non_auxiliary$PE, CM=results_non_auxiliary$CM, CP=results_non_auxiliary$CP, stringsAsFactors=FALSE)
   all_df_non_auxiliary <- rbind(all_df_non_auxiliary, df_non_auxiliary)
 
-  results_regression <- binder(proxy_regulon, coexpression, is_coexpression=TRUE, mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_psi=c(0,0), sigma_psi=c(3,3), model="deterministic", chains=3, seed=1)
+  results_regression <- binder(proxy_regulon, coexpression, is_coexpression=TRUE, mu_zeta=0, sigma_zeta=3, mu_tau=c(0,0), sigma_tau=c(3,3), mu_psi=c(0,0), sigma_psi=c(3,3), model="deterministic", chains=3, seed=1)[[1]]
   df_regression <- data.frame(Organism=organism, Regulator=regulator, RegulatorLocus=regulator_locus, TargetCandidate=results_regression$target_candidate, Score=results_regression$theta_interval[, 2], Interaction=ifelse(results_regression$target_candidate %in% interactions, 1, 0), Model="Deterministic", ME=results_regression$ME, PE=results_regression$PE, CM=results_regression$CM, CP=results_regression$CP, stringsAsFactors=FALSE)
   all_df_regression <- rbind(all_df_regression, df_regression)
 
