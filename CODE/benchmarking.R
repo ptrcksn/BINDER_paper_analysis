@@ -203,8 +203,8 @@ regulon_data <- list()
 
 # E. coli:
 
-e_coli_coexpression_all <- compute_coexpression(e_coli_expression_all, keep_e_coli)
-e_coli_coexpression <- compute_coexpression(e_coli_expression, keep_e_coli)
+e_coli_coexpression_all <- compute_coexpression(e_coli_expression_all)
+e_coli_coexpression <- compute_coexpression(e_coli_expression)
 
 regulon_data[["e_coli_fur"]]$organism <- "E. coli"
 regulon_data[["e_coli_fur"]]$regulator <- "Fur"
@@ -225,7 +225,7 @@ regulon_data[["e_coli_lexA"]]$interactions <- e_coli_lexA_interactions
 
 # B. subtilis:
 
-b_subtilis_coexpression <- compute_coexpression(b_subtilis_expression, keep_b_subtilis)
+b_subtilis_coexpression <- compute_coexpression(b_subtilis_expression)
 
 regulon_data[["b_subtilis_fur"]]$organism <- "B. subtilis"
 regulon_data[["b_subtilis_fur"]]$regulator <- "Fur"
@@ -321,7 +321,7 @@ ggplot(all_df, aes(d=Interaction, m=Score, color=factor(Model, levels=c("iRafNet
   ylab("True Positive Rate") +
   facet_grid(Regulator ~ Organism) +
   theme_minimal() +
-  theme(axis.text=element_text(size=7), legend.text=element_text(size=10), legend.title=element_text(size=12), strip.text=element_text(size=15)) +
+  theme(axis.title=element_text(size=12), axis.text=element_text(size=10), legend.title=element_text(size=12), legend.text=element_text(size=10), strip.text=element_text(size=12), legend.position="bottom") +
   scale_color_manual(name="Model", breaks=c("iRafNet", "Deterministic", "Non-auxiliary", "BINDER", "BINDER [Informative p(phi)]", "BINDER (all)"), labels=c("iRafNet", "Deterministic", "Non-auxiliary", "BINDER", expression(paste("BINDER [Informative ",p(phi),"]")), "BINDER (all)"), values=base_palette) +
   scale_size_manual(name="Model", breaks=c("iRafNet", "Deterministic", "Non-auxiliary", "BINDER", "BINDER [Informative p(phi)]", "BINDER (all)"), labels=c("iRafNet", "Deterministic", "Non-auxiliary", "BINDER", expression(paste("BINDER [Informative ",p(phi),"]")), "BINDER (all)"), values=c(0.5, 0.4, 0.4, 0.5, 0.5, 0.5)) +
   coord_fixed(ratio=1) +
@@ -339,10 +339,10 @@ ggplot(all_df) +
   ylab(expression(paste(theta^"50%"))) +
   facet_grid(Regulator ~ Organism) +
   theme_minimal() +
-  theme(axis.text=element_text(size=7), axis.text.y=element_text(angle=90), legend.text=element_text(size=10), legend.title=element_text(size=12), strip.text=element_text(size=15)) +
+  theme(axis.title=element_text(size=12), axis.text=element_text(size=10), legend.title=element_text(size=12), legend.text=element_text(size=10), strip.text=element_text(size=12), axis.text.y=element_text(angle=90), legend.position="bottom") +
   scale_fill_manual(name="Model", breaks=c("Deterministic", "Non-auxiliary", "BINDER", "BINDER [Informative p(phi)]", "BINDER (all)"), labels=c("Deterministic", "Non-auxiliary", "BINDER", expression(paste("BINDER [Informative ",p(phi),"]")), "BINDER (all)"), values=base_palette) +
   scale_color_manual(name="Model", breaks=c("Deterministic", "Non-auxiliary", "BINDER", "BINDER [Informative p(phi)]", "BINDER (all)"), labels=c("Deterministic", "Non-auxiliary", "BINDER", expression(paste("BINDER [Informative ",p(phi),"]")), "BINDER (all)"), values=base_palette) +
-  guides(shape=guide_legend(override.aes=list(size=1))) +
+  guides(shape=guide_legend(override.aes=list(size=1)), fill=guide_legend(nrow=2,byrow=TRUE)) +
   coord_flip()
 
 set.seed(1)
@@ -353,6 +353,6 @@ ggplot(all_df[all_df$Organism == "B. subtilis" & all_df$Regulator == "LexA" & al
   ylab("CP") +
   facet_grid(factor(Model, levels=c("Deterministic", "Non-auxiliary", "BINDER")) ~ Interaction) +
   theme_minimal() +
-  theme(legend.title=element_text(size=12), legend.text=element_text(size=10), strip.text=element_text(size=8)) +
+  theme(axis.title=element_text(size=12), axis.text=element_text(size=10), legend.title=element_text(size=12), legend.text=element_text(size=10), strip.text=element_text(size=12)) +
   scale_fill_gradientn(name=expression(paste(theta["lexA"]^"50%")), colours=c("#54b8d3", "#EFC69B", "#CE8964", "#832232", "#2E0219"), limits=c(0,1)) +
   coord_fixed(ratio=1)
